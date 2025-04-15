@@ -1,27 +1,29 @@
-name: Playwright Tests
-on:
-  push:
+name: Playwright Tests # nome do worflow
+on: #qdo sera executado
+  push: #condiçoes que executa esse workfloaw push pu pull
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-jobs:
+jobs: # tarefas que vao ser executadas
   test:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
+    runs-on: ubuntu-latest #define quem vai rodar testes-ambiente ubuntu lastest agente de execuçao
+    steps: #steps dentro agente execuçao
+    - uses: actions/checkout@v4 #uses ativa plugin dentro github actiond-obtem cod fonte repositorio
+    - uses: actions/setup-node@v4 #define versao dentro agente execuçao (ubunto)
       with:
-        node-version: lts/*
+        node-version: 18
+        #comandos
+        #cada run ganha name: descriçao comando
     - name: Install dependencies
-      run: npm ci
+      run: npm install #fazer instalaçoes projetos
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: npx playwright install --with-deps #instala playwrigts com suas depend
     - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
+      run: npx playwright test #eceuta teste regressao
+    - uses: actions/upload-artifact@v4 #pega reporte html-publica saida execuçao job-metrica e historico d eexecuçao-retem relatorios por 30 dias
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
         path: playwright-report/
-        retention-days: 30
+        retention-days: 30 # retem por 30 dias
