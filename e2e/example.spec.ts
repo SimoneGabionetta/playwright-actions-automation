@@ -1,5 +1,6 @@
 import { test, expect, Page } from '@playwright/test';
 
+// 5 test case
 test('usuário obrigatório', async ({ page }) => {
   await login(page, '', 'senha123')
   await toast(page, 'Informe o seu nome de usuário!s')
@@ -25,6 +26,9 @@ test('com sucesso', async ({ page }) => {
   await modal(page, 'Suas credenciais são válidas :)')
 })
 
+//funçao dentro const validar elemento toast, validar modal, login
+//padrao custom helper puro nao esta em object page 
+//login go to / acessar a url principal
 const toast = async (page: Page, message: string) => {
   const target = page.locator('div[role=status]')
   await expect(target).toHaveText(message);
