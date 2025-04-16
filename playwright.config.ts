@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { on } from 'events';
 
 /**
  * Read environment variables from file.
@@ -30,7 +31,9 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    baseURL:'https://loginxp.vercel.app'// (site alvo teste)
+    baseURL:'https://loginxp.vercel.app',// (site alvo teste)
+    video:'on'
+
   },
 
   /* Configure projects for major browsers */
