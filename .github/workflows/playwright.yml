@@ -1,29 +1,31 @@
-name: Playwright Tests # nome do worflow
-on: #qdo sera executado
-  push: #condiçoes que executa esse workfloaw push pu pull
+#workflow criado automatico do playwright
+name: Playwright Tests  #nome workflow
+on: #qdo sera executado (push e pull na main,master)
+  push: 
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-jobs: # tarefas que vao ser executadas
-  test:
+jobs: # tarefas que deve ser executadas
+  test: #teste
     timeout-minutes: 60
-    runs-on: ubuntu-latest #define quem vai rodar testes-ambiente ubuntu lastest agente de execuçao
+    #workflow define quem vai rodar testes-ambiente ubuntu lastest(docker) agente de execuçao
+    #agente de execuçao provisionado pelo gitHub actions
+    runs-on: ubuntu-latest 
     steps: #steps dentro agente execuçao
-    - uses: actions/checkout@v4 #uses ativa plugin dentro github actiond-obtem cod fonte repositorio
+    - uses: actions/checkout@v4 #uses ativa plugin/recurso dentro github actiond-obtem cod fonte repositorio
     - uses: actions/setup-node@v4 #define versao dentro agente execuçao (ubunto)
       with:
-        node-version: 18
+        node-version: 18 #config para instalar versao node
         #comandos
         #cada run ganha name: descriçao comando
     - name: Install dependencies
-      run: npm install #fazer instalaçoes projetos
+      run: npm install #fazer instalaçoes depend
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps #instala playwrigts com suas depend
+      run: npx playwright install --with-deps #instala play com suas depend (browser e libis add)
     - name: Run Playwright tests
-      run: npx playwright test #eceuta teste regressao
-    - uses: actions/upload-artifact@v4 #pega reporte html-publica saida execuçao job-metrica e historico d eexecuçao-retem relatorios por 30 dias
-      if: ${{ !cancelled() }}
+      run: npx playwright test #executa teste regressao
+    - uses: actions/upload-artifact@v4 #pega reporte html-publica saida execuçao job-cd bateria relatorio e historico     if: ${{ !cancelled() }}
       with:
         name: playwright-report
         path: playwright-report/
-        retention-days: 30 # retem por 30 dias
+        retention-days: 30 # retem relatorio por 30 dias

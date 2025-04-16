@@ -26,9 +26,8 @@ test('com sucesso', async ({ page }) => {
   await modal(page, 'Suas credenciais são válidas :)')
 })
 
-//funçao dentro const validar elemento toast, validar modal, login
-//padrao custom helper puro nao esta em object page 
-//login go to / acessar a url principal
+//funçao dentro const 
+//padrao project custom helper
 const toast = async (page: Page, message: string) => {
   const target = page.locator('div[role=status]')
   await expect(target).toHaveText(message);
@@ -40,7 +39,7 @@ const modal = async (page: Page, message: string) => {
 }
 
 const login = async (page: Page, user: string, pass: string) => {
-    await page.goto('/')
+    await page.goto('/') // url base precisa estar config
 
     const username = page.locator('[name=user]')
     const password = page.locator('[name=pass]')
